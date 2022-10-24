@@ -1,9 +1,11 @@
-import { Flex, Image, Heading, useDisclosure } from "@chakra-ui/react";
+import { Flex, Image, Heading, useDisclosure, Center } from "@chakra-ui/react";
 import { Menu } from "./Menu";
 import logo from "../../assets/logo-secondary.svg";
+import { FaTh } from "react-icons/fa";
+import { theme } from "../../styles/theme";
 
 export const Header = () => {
-  const { isOpen, onClose } = useDisclosure();
+  const { isOpen, onClose, onToggle } = useDisclosure();
   return (
     <Flex
       borderBottom="1px"
@@ -17,6 +19,9 @@ export const Header = () => {
           Dashboard
         </Heading>
       </Flex>
+      <Center ml="auto" onClick={onToggle} as="button" fontSize="2rem">
+        <FaTh color={theme.colors.gray[300]} />
+      </Center>
       <Menu isOpen={isOpen} onClose={onClose} />
     </Flex>
   );
