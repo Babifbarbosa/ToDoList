@@ -1,14 +1,15 @@
 import {
+  Box,
+  Button,
+  Center,
   Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
   ModalHeader,
   ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalFooter,
-  Button,
   Text,
-  Center,
-  Box,
 } from "@chakra-ui/react";
 import { FaExclamation, FaTimes } from "react-icons/fa";
 import { theme } from "../../styles/theme";
@@ -34,26 +35,28 @@ export const ModalError = ({
           <FaExclamation color={theme.colors.white} />
         </Center>
         <Text fontWeight="bold" ml="2">
-          Oopss..
+          Oops!
         </Text>
+        <Center
+          onClick={onClose}
+          as="button"
+          ml="auto"
+          w="32px"
+          h="32px"
+          bg="red.600"
+          fontSize="lg"
+          borderRadius="md"
+        >
+          <FaTimes color={theme.colors.white} />
+        </Center>
       </ModalHeader>
-      <Center
-        onClick={onClose}
-        as="button"
-        ml="auto"
-        w="32px"
-        h="32px"
-        bg="red.600"
-        fontSize="lg"
-        borderRadius="md"
-      >
-        <FaTimes color={theme.colors.white} />
-      </Center>
-      <ModalBody textAlign="center" color="gray.400">
+
+      <ModalBody color="gray.400" textAlign="center">
         <Text>
-          Ocorreu algum erro! <b>{error}</b>
+          Ocorreu algum erro! <b> {error}</b>{" "}
         </Text>
       </ModalBody>
+
       <ModalFooter display="column">
         <Button
           bg="red.600"
@@ -65,7 +68,7 @@ export const ModalError = ({
         >
           Tentar novamente
         </Button>
-        <Text mt="4" textAlign="center" color="gray.400">
+        <Text mt="4" textAlign="center">
           <Box dangerouslySetInnerHTML={{ __html: secondaryText }} />
         </Text>
       </ModalFooter>

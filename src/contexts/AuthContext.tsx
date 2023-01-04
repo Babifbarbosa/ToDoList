@@ -1,10 +1,11 @@
 import {
   createContext,
+  ReactNode,
   useCallback,
   useContext,
   useState,
-  ReactNode,
 } from "react";
+
 import { api } from "../services/api";
 
 interface AuthProviderProps {
@@ -26,6 +27,7 @@ interface SignInCredentials {
   email: string;
   password: string;
 }
+
 interface AuthContextData {
   user: User;
   accessToken: string;
@@ -41,33 +43,36 @@ const useAuth = () => {
   if (!context) {
     throw new Error("useAuth must be used within an AuthProvider");
   }
+
   return context;
 };
+
 const AuthProvider = ({ children }: AuthProviderProps) => {
-  const [data, setData] = useState(() => {
+  const [data, setData] = useState<AuthState>(() => {
     const accessToken = localStorage.getItem("@Doit:accessToken");
     const user = localStorage.getItem("@Doit:user");
 
     if (accessToken && user) {
       return { accessToken, user: JSON.parse(user) };
     }
+
     return {} as AuthState;
   });
 
   const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
-    const response = await api.post("/users", { email, password });
+    const response = await api.post("/login", { email, password });
 
     const { accessToken, user } = response.data;
 
-    localStorage.setItem("Doit:accessToken", accessToken);
-    localStorage.setItem("Doit:user", JSON.stringify(user));
+    localStorage.setItem("@Doit:accessToken", accessToken);
+    localStorage.setItem("@Doit:user", JSON.stringify(user));
 
     setData({ accessToken, user });
   }, []);
 
   const signOut = useCallback(() => {
-    localStorage.removeItem("Doit:accessToken");
-    localStorage.removeItem("Doit:user");
+    localStorage.removeItem("@Doit:accessToken");
+    localStorage.removeItem("@Doit:user");
 
     setData({} as AuthState);
   }, []);
@@ -85,4 +90,5 @@ const AuthProvider = ({ children }: AuthProviderProps) => {
     </AuthContext.Provider>
   );
 };
+
 export { AuthProvider, useAuth };

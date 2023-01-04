@@ -2,21 +2,24 @@ import {
   Grid,
   Image,
   Heading,
-  Box,
-  VStack,
   Text,
+  VStack,
   Flex,
+  Box,
   Center,
-  theme,
 } from "@chakra-ui/react";
 import { FaForward } from "react-icons/fa";
-import LogoSecundary2 from "../../assets/logo-secondary2.svg";
-import SimpleIcon from "../../assets/retangle.svg";
+import LogoSecondary from "../../assets/logo-secondary.svg";
+import { theme } from "../../styles/theme";
+import SimpleIcon from "../../assets/simple-icon.svg";
 
-export const SignUpInfo = () => (
-  <Grid w={["100%", "100%", "50%", "50%"]} paddingLeft={["10", "10", "150px"]}>
+export const SignupInfo = () => (
+  <Grid
+    w={["100%", "100%", "50%", "50%"]}
+    paddingLeft={["10px", "10px", "150px"]}
+  >
     <Image
-      src={LogoSecundary2}
+      src={LogoSecondary}
       alt="doit"
       boxSize={["120px", "120px", "150px", "150px"]}
     />
@@ -26,7 +29,7 @@ export const SignUpInfo = () => (
           <FaForward color={theme.colors.purple["800"]} size={25} />
         </Center>
         <Box ml="4">
-          <Heading size="lg"> Agilidade</Heading>
+          <Heading size="lg"> Agilidade </Heading>
           <Text>
             Agilize seus projetos com rapidez <br /> e muita performance
           </Text>
@@ -37,10 +40,9 @@ export const SignUpInfo = () => (
           <Image src={SimpleIcon} w="25px" />
         </Center>
         <Box ml="4">
-          <Heading size="lg"> Simplicidade</Heading>
+          <Heading size="lg"> Simplicidade </Heading>
           <Text>
-            Armazene seus projetos em uma
-            <br /> interface altamente usual
+            Armazene seus projetos em uma <br /> interface altamente usual
           </Text>
         </Box>
       </Flex>

@@ -1,9 +1,10 @@
-import { Grid, Heading, VStack, Box, Button, Text } from "@chakra-ui/react";
-import { Input } from "../../components/Form/input";
-import { FaEnvelope, FaLock } from "react-icons/fa";
+import { Box, Button, Grid, Heading, Text, VStack } from "@chakra-ui/react";
 import { DeepMap, FieldError, UseFormRegister } from "react-hook-form";
 import { FieldValues } from "react-hook-form";
+import { FaEnvelope, FaLock } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
+import { Input } from "../../components/Form/input";
+
 interface LoginFormProps {
   handleSignIn: () => void;
   errors: DeepMap<FieldValues, FieldError>;
@@ -22,7 +23,7 @@ export const LoginForm = ({
     <Grid
       onSubmit={handleSignIn}
       as="form"
-      padding="30px 20px"
+      padding="30px 15px"
       border="3px solid"
       borderColor="gray.100"
       bg="white"
@@ -30,15 +31,15 @@ export const LoginForm = ({
       mt={["4", "4", "0"]}
       w={["100%", "100%", "40%", "40%"]}
     >
-      <Heading size="lg">Bem vindo de volta</Heading>
+      <Heading size="lg"> Bem vindo de volta!</Heading>
       <VStack mt="6" spacing="5">
         <Box w="100%">
           <Input
             placeholder="Digite seu login"
-            icon={FaEnvelope}
-            label="Login"
             type="email"
+            label="Login"
             error={errors.email}
+            icon={FaEnvelope}
             {...register("email")}
           />
           {!errors.email && (
@@ -48,10 +49,11 @@ export const LoginForm = ({
           )}
         </Box>
         <Input
-          placeholder="Digite sua senha"
-          icon={FaLock}
-          error={errors.password}
           type="password"
+          placeholder="Digite sua senha"
+          label="Senha"
+          error={errors.password}
+          icon={FaLock}
           {...register("password")}
         />
       </VStack>
@@ -63,7 +65,9 @@ export const LoginForm = ({
           color="white"
           h="60px"
           borderRadius="8px"
-          _hover={{ background: "purple.900" }}
+          _hover={{
+            background: "purple.900",
+          }}
           type="submit"
         >
           Entrar
@@ -74,9 +78,11 @@ export const LoginForm = ({
           w="100%"
           color="gray.300"
           h="60px"
-          onClick={() => history.push("/signup")}
           borderRadius="8px"
-          _hover={{ background: "gray.200" }}
+          onClick={() => history.push("/signup")}
+          _hover={{
+            background: "gray.200",
+          }}
         >
           Cadastrar
         </Button>

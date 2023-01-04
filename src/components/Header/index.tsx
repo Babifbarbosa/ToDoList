@@ -1,11 +1,12 @@
-import { Flex, Image, Heading, useDisclosure, Center } from "@chakra-ui/react";
-import { Menu } from "./Menu";
-import logo from "../../assets/logo-secondary.svg";
+import { Center, Flex, Heading, Image, useDisclosure } from "@chakra-ui/react";
 import { FaTh } from "react-icons/fa";
+import Logo from "../../assets/simple-icon.svg";
 import { theme } from "../../styles/theme";
+import { Menu } from "./Menu";
 
 export const Header = () => {
   const { isOpen, onClose, onToggle } = useDisclosure();
+
   return (
     <Flex
       borderBottom="1px"
@@ -14,7 +15,7 @@ export const Header = () => {
       paddingY="2"
     >
       <Flex align="center">
-        <Image src={logo} />
+        <Image src={Logo} />
         <Heading ml="4" size="lg">
           Dashboard
         </Heading>

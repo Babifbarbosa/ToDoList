@@ -1,10 +1,10 @@
 import { Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
-import { SignUpInfo } from "./SignupInfo";
-import { SignUpForm } from "./SignupForm";
+import { SignupInfo } from "./SignupInfo";
+import { SignupForm } from "./SignupForm";
 import { GoBackButton } from "./GoBackButton";
 import { api } from "../../services/api";
 import { ModalSuccess } from "../../components/Modal/ModalSuccess";
@@ -12,12 +12,12 @@ import { ModalError } from "../../components/Modal/ModalError";
 import { useHistory } from "react-router-dom";
 
 const signUpSchema = yup.object().shape({
-  name: yup.string().required("Nome Obrigatório."),
-  email: yup.string().required("Email obrigatório").email("Email invalido"),
+  name: yup.string().required("Nome obrigatório"),
+  email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
   password: yup.string().required("Senha obrigatória"),
   confirm_password: yup
     .string()
-    .required("Conformação de senha obrigatória")
+    .required("Confirmação de senha obrigatória")
     .oneOf([yup.ref("password")], "Senhas diferentes"),
 });
 
@@ -27,14 +27,16 @@ interface SignUpData {
   name: string;
 }
 
-export const SignUp = () => {
+export const Signup = () => {
   const [loading, setLoading] = useState(false);
 
   const {
     formState: { errors },
     register,
     handleSubmit,
-  } = useForm({ resolver: yupResolver(signUpSchema) });
+  } = useForm({
+    resolver: yupResolver(signUpSchema),
+  });
 
   const {
     isOpen: isModalSuccessOpen,
@@ -48,8 +50,9 @@ export const SignUp = () => {
     onClose: onModalErrorClose,
   } = useDisclosure();
 
-  const handleSignUp = ({ name, email, password }: SignUpData) => {
+  const handleSignup = ({ name, email, password }: SignUpData) => {
     setLoading(true);
+
     api
       .post("/register", { name, email, password })
       .then((response) => {
@@ -73,23 +76,23 @@ export const SignUp = () => {
     <>
       <ModalSuccess
         buttonMessage="Ir para o login agora"
-        message="Seu cadastro deu certo, vamos lá!"
+        message="Seu cadastro deu super certo, <b> vamos lá </b>"
         onClick={() => history.push("/")}
-        secondaryText="Você já pode começar criando suas listas de tarefas agora mesmo..."
+        secondaryText="Você já pode começar criando <b> suas listas </b> de tarefas agora mesmo..."
         isOpen={isModalSuccessOpen}
         onClose={onModalSuccessClose}
       />
       <ModalError
-        error="Este email ja esta em uso"
+        error="Seu email já está em uso"
         isOpen={isModalErrorOpen}
         onClose={onModalErrorClose}
-        secondaryText="Você ja pode tentar novamente, <b>clicando</b> no botão acima ou aguarde alguns minutos..."
+        secondaryText="Você já pode tentar novamente, <b> clicando </b> no botão acima ou aguarde alguns minutos..."
       />
       <Flex
         padding={["10px 15px", "10 15px", "0px", "0px"]}
         alignItems="center"
         justifyContent="center"
-        height={["auto", "auto", "100vh", "110vh"]}
+        height={["auto", "auto", "100vh", "100vh"]}
         bgGradient={[
           "linear(to-b, purple.800 65%, white 35%)",
           "linear(to-b, purple.800 65%, white 35%)",
@@ -105,22 +108,22 @@ export const SignUp = () => {
         >
           {isWideVersion ? (
             <>
-              <GoBackButton top="160" left="25" />
-              <SignUpForm
+              <GoBackButton top="75" left="24" />
+              <SignupForm
                 errors={errors}
-                handleSignUp={handleSubmit(handleSignUp)}
+                handleSignup={handleSubmit(handleSignup)}
                 loading={loading}
                 register={register}
               />
-              <SignUpInfo />
+              <SignupInfo />
             </>
           ) : (
             <>
-              <GoBackButton top="75" left="24" />
-              <SignUpInfo />
-              <SignUpForm
+              <GoBackButton top="10" left="75vw" />
+              <SignupInfo />
+              <SignupForm
                 errors={errors}
-                handleSignUp={handleSubmit(handleSignUp)}
+                handleSignup={handleSubmit(handleSignup)}
                 loading={loading}
                 register={register}
               />

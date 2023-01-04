@@ -1,4 +1,3 @@
-import { useAuth } from "../../contexts/AuthContext";
 import {
   Box,
   Center,
@@ -11,6 +10,7 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
+import { useAuth } from "../../contexts/AuthContext";
 import { FiLogOut } from "react-icons/fi";
 import { theme } from "../../styles/theme";
 
@@ -21,9 +21,10 @@ interface MenuProps {
 
 export const Menu = ({ isOpen, onClose }: MenuProps) => {
   const { user, signOut } = useAuth();
+
   return (
     <Drawer placement="top" onClose={onClose} isOpen={isOpen}>
-      <DrawerOverlay mt="8vh" />
+      <DrawerOverlay mt={["13vh", "8vh"]} />
       <DrawerContent ml="auto" mt="80px" w={["450px", "350px"]}>
         <DrawerHeader
           borderBottomWidth="1px"

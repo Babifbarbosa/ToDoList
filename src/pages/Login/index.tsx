@@ -1,14 +1,14 @@
 import { Flex } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
 import { LoginInfo } from "./LoginInfo";
 import { LoginForm } from "./LoginForm";
 
 const signInSchema = yup.object().shape({
-  email: yup.string().required("Email obrigatório").email("Email invalido"),
+  email: yup.string().required("E-mail obrigatório").email("E-mail inválido"),
   password: yup.string().required("Senha obrigatória"),
 });
 
@@ -17,23 +17,18 @@ interface SignInData {
   password: string;
 }
 
-// type FormData = {
-//   email: string;
-//   password: string;
-// };
-
 export const Login = () => {
   const [loading, setLoading] = useState(false);
 
-  const { signIn, accessToken } = useAuth();
-
-  console.log(accessToken);
+  const { signIn } = useAuth();
 
   const {
     formState: { errors },
     register,
     handleSubmit,
-  } = useForm({ resolver: yupResolver(signInSchema) });
+  } = useForm({
+    resolver: yupResolver(signInSchema),
+  });
 
   const handleSignIn = (data: SignInData) => {
     setLoading(true);
